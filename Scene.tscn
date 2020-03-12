@@ -1,0 +1,252 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://script/Sphere.cs" type="Script" id=1]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="ProceduralSky" id=2]
+
+[sub_resource type="Environment" id=3]
+background_sky = SubResource( 2 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_sky_contribution = 0.0
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends ConfirmationDialog
+
+export(NodePath) var projection;
+export(NodePath) var size;
+"
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+margin_right = 1008.0
+margin_bottom = 584.0
+custom_constants/separation = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+margin_right = 1008.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="File" type="MenuButton" parent="Panel/MarginContainer/VBoxContainer/Menu"]
+margin_right = 35.0
+margin_bottom = 20.0
+text = "File"
+items = [ "New...", null, 0, false, false, 0, 0, null, "", false, "Open...", null, 0, false, false, 1, 0, null, "", false, "", null, 0, false, false, 2, 0, null, "", true, "Save", null, 0, false, false, 3, 0, null, "", false, "Save As...", null, 0, false, false, 4, 0, null, "", false, "", null, 0, false, false, 5, 0, null, "", true, "Quit", null, 0, false, false, 6, 0, null, "", false ]
+switch_on_hover = true
+
+[node name="HSplitContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+margin_top = 28.0
+margin_right = 1008.0
+margin_bottom = 584.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Toolbar" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer"]
+margin_right = 308.0
+margin_bottom = 556.0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer/Toolbar"]
+margin_right = 308.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer/Toolbar/HBoxContainer"]
+margin_top = 5.0
+margin_right = 67.0
+margin_bottom = 19.0
+text = "Brush Size"
+
+[node name="SpinBox" type="SpinBox" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer/Toolbar/HBoxContainer"]
+margin_left = 71.0
+margin_right = 308.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+
+[node name="ColorPicker" type="ColorPicker" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer/Toolbar"]
+margin_top = 28.0
+margin_right = 308.0
+margin_bottom = 466.0
+edit_alpha = false
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer/Toolbar"]
+margin_top = 470.0
+margin_right = 308.0
+margin_bottom = 556.0
+size_flags_vertical = 3
+expand = true
+stretch_mode = 5
+
+[node name="ViewportContainer" type="ViewportContainer" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer"]
+margin_left = 316.0
+margin_right = 1008.0
+margin_bottom = 556.0
+size_flags_horizontal = 3
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer/ViewportContainer"]
+size = Vector2( 692, 556 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="World" type="Spatial" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer/ViewportContainer/Viewport"]
+
+[node name="Anchor" type="Spatial" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer/ViewportContainer/Viewport/World"]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer/ViewportContainer/Viewport/World/Anchor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
+projection = 1
+size = 3.0
+
+[node name="Sphere" type="MeshInstance" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer/ViewportContainer/Viewport/World"]
+mesh = SubResource( 1 )
+material/0 = null
+script = ExtResource( 1 )
+color = NodePath("../../../../Toolbar/ColorPicker")
+camera = NodePath("../Anchor/Camera")
+anchor = NodePath("../Anchor")
+texture = NodePath("../../../../Toolbar/TextureRect")
+size = NodePath("../../../../Toolbar/HBoxContainer/SpinBox")
+file = NodePath("../../../../../Menu/File")
+newGlobe = NodePath("../../../../../../../../NewGlobe")
+saveGlobe = NodePath("../../../../../../../../SaveGlobe")
+openGlobe = NodePath("../../../../../../../../OpenGlobe")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer/ViewportContainer/Viewport/World"]
+environment = SubResource( 3 )
+
+[node name="Layers" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HSplitContainer"]
+visible = false
+margin_left = 1024.0
+margin_right = 1024.0
+margin_bottom = 916.0
+
+[node name="NewGlobe" type="ConfirmationDialog" parent="."]
+margin_right = 212.0
+margin_bottom = 92.0
+popup_exclusive = true
+window_title = "New Globe"
+script = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+projection = NodePath("Container/ProjectionContainer/Projection")
+size = NodePath("Container/SizeContainer/Size")
+
+[node name="Container" type="VBoxContainer" parent="NewGlobe"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -36.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProjectionContainer" type="HBoxContainer" parent="NewGlobe/Container"]
+margin_right = 196.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="NewGlobe/Container/ProjectionContainer"]
+margin_top = 3.0
+margin_right = 65.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Projection"
+
+[node name="Projection" type="OptionButton" parent="NewGlobe/Container/ProjectionContainer"]
+margin_left = 69.0
+margin_right = 196.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Equirectangular"
+items = [ "Equirectangular", null, false, 0, null ]
+selected = 0
+
+[node name="SizeContainer" type="HBoxContainer" parent="NewGlobe/Container"]
+margin_top = 24.0
+margin_right = 196.0
+margin_bottom = 48.0
+
+[node name="Label" type="Label" parent="NewGlobe/Container/SizeContainer"]
+margin_top = 5.0
+margin_right = 96.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Size (px)"
+
+[node name="Size" type="SpinBox" parent="NewGlobe/Container/SizeContainer"]
+margin_left = 100.0
+margin_right = 196.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 2.14748e+09
+value = 512.0
+
+[node name="SaveGlobe" type="FileDialog" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+popup_exclusive = true
+window_title = "Save Globe"
+resizable = true
+access = 2
+filters = PoolStringArray( "*.png ; PNG Images" )
+current_dir = "/home/astavie"
+current_path = "/home/astavie/"
+
+[node name="OpenGlobe" type="FileDialog" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+popup_exclusive = true
+window_title = "Open a File"
+resizable = true
+mode = 0
+access = 2
+filters = PoolStringArray( "*.png ; PNG Images" )
+current_dir = "/home/astavie"
+current_path = "/home/astavie/"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,6 @@
+/home/astavie/Documents/Code/Godot/drawonsphere/.mono/temp/bin/Tools/DrawOnSphere.dll
+/home/astavie/Documents/Code/Godot/drawonsphere/.mono/temp/bin/Tools/DrawOnSphere.pdb
+/home/astavie/Documents/Code/Godot/drawonsphere/.mono/temp/obj/Tools/DrawOnSphere.csprojAssemblyReference.cache
+/home/astavie/Documents/Code/Godot/drawonsphere/.mono/temp/obj/Tools/DrawOnSphere.csproj.CoreCompileInputs.cache
+/home/astavie/Documents/Code/Godot/drawonsphere/.mono/temp/obj/Tools/DrawOnSphere.dll
+/home/astavie/Documents/Code/Godot/drawonsphere/.mono/temp/obj/Tools/DrawOnSphere.pdb
